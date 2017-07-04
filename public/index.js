@@ -1,20 +1,29 @@
 const sprint = new Vue({
   el: '#sprint',
   data: {
-    name: null,
+    words: [],
+  },
+  methods: {
+    newWord: function newWord(index) {
+      fetch('/word')
+        .then(results => results.json())
+        .then(data =>
+          Vue.set(this.words, index, data.word));
+    },
   },
 });
 
-// eslint-disable-next-line no-new
-new Vue({
+const newSprintButton = new Vue({
   el: '#new-sprint-button',
   methods: {
     newSprint: function newSprint() {
       fetch('/name')
         .then(results => results.json())
         .then((data) => {
-          sprint.name = data.sprintName;
+          sprint.words = data.sprintName;
         });
     },
   },
 });
+
+newSprintButton.newSprint();

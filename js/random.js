@@ -6,8 +6,7 @@ module.exports = class Random {
     return Math.floor(Math.random() * (maximum - minimum)) + minimum;
   }
 
-  static getInts(count, minWordLength, maxWordLength) {
-    return [...Array(count)].map(() =>
-      Random.getInt(minWordLength, maxWordLength));
+  static getInts(count, min, max) {
+    return [...Array(count)].map(() => Random.getInt(min, max));
   }
 };

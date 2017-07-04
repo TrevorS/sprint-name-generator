@@ -8,13 +8,17 @@
   <body>
     <h1>Sprint Name Generator</h1>
 
-    <div id="sprint">
-      {{ name }}
-    </div>
+    <ul id="sprint" v-cloak>
+      <li v-for="(word, index) in words" @click="newWord(index)">
+        {{ word }}
+      </li>
+    </ul>
 
-    <button id="new-sprint-button" @click="newSprint">
-      New Sprint
-    </button>
+    <div id="actions">
+      <button id="new-sprint-button" @click="newSprint">
+        New Sprint
+      </button>
+    </div>
 
     <script src="https://unpkg.com/vue"></script>
     <script src="index.js"></script>
