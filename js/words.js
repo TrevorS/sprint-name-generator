@@ -2,8 +2,11 @@ const fs = require('fs');
 const Random = require('./random');
 
 module.exports = class Words {
-  constructor(path) {
+  constructor(path, minWordLength, maxWordLength) {
     this.dict = Words.loadDictionary(path);
+
+    this.minWordLength = minWordLength;
+    this.maxWordLength = maxWordLength;
   }
 
   oneOfLength(count) {
@@ -12,14 +15,11 @@ module.exports = class Words {
     return words[Random.getInt(0, words.length)];
   }
 
-  getSprintName() {
-    const [lengthOne, lengthTwo, lengthThree] = Random.getIntTriplet();
+  getSprintName(numberOfWords) {
+    const lengths = Random.getInts(numberOfWords,
+      this.minWordLength, this.maxWordLength);
 
-    return [
-      this.oneOfLength(lengthOne),
-      this.oneOfLength(lengthTwo),
-      this.oneOfLength(lengthThree),
-    ].map(word => word.toLowerCase()).join(' ');
+    return lengths.map(wordLength => this.oneOfLength(wordLength));
   }
 
   static loadDictionary(path) {

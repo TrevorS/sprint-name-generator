@@ -3,26 +3,32 @@ const path = require('path');
 
 const Words = require('./words');
 
-const port = process.env.PORT || 3000;
-const root = path.join(__dirname, '../public');
+const minWordLength = 4;
+const maxWordLength = 10;
+const numberOfWords = 3;
 
 const wordsPath = path.join(__dirname, '../data/words');
-const words = new Words(wordsPath);
+const words = new Words(wordsPath, minWordLength, maxWordLength);
+
+const port = process.env.PORT || 3000;
+const root = path.join(__dirname, '../public');
 
 const app = express();
 
 app.use(express.static(root));
 
 app.get('/name', (req, res) => {
-  const sprintName = words.getSprintName();
+  const sprintName = words.getSprintName(numberOfWords);
 
   res.json({ sprintName });
 });
 
-app.get('/words/:count', (req, res) => {
-  const count = req.params.count;
+app.get('/word/:wordLength', (req, res) => {
+  const { wordLength } = req.params;
 
-  res.json({ word: words.oneOfLength(count) });
+  const word = words.oneOfLength(wordLength);
+
+  res.json({ word });
 });
 
 app.listen(port, () => {

@@ -1,6 +1,3 @@
-const minimumWordLength = 4;
-const maximumWordLength = 10;
-
 module.exports = class Random {
   static getInt(min, max) {
     const minimum = Math.ceil(min);
@@ -9,11 +6,8 @@ module.exports = class Random {
     return Math.floor(Math.random() * (maximum - minimum)) + minimum;
   }
 
-  static getIntTriplet() {
-    return [
-      Random.getInt(minimumWordLength, maximumWordLength),
-      Random.getInt(minimumWordLength, maximumWordLength),
-      Random.getInt(minimumWordLength, maximumWordLength),
-    ];
+  static getInts(count, minWordLength, maxWordLength) {
+    return [...Array(count)].map(() =>
+      Random.getInt(minWordLength, maxWordLength));
   }
 };
