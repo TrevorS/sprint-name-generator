@@ -15,6 +15,12 @@ module.exports = class Words {
     return words[Random.getInt(0, words.length)];
   }
 
+  getWord() {
+    const randomLength = Random.getInt(this.minWordLength, this.maxWordLength);
+
+    return this.oneOfLength(randomLength);
+  }
+
   getSprintName(numberOfWords) {
     const lengths = Random.getInts(numberOfWords,
       this.minWordLength, this.maxWordLength);

@@ -23,6 +23,12 @@ app.get('/name', (req, res) => {
   res.json({ sprintName });
 });
 
+app.get('/word', (req, res) => {
+  const word = words.getWord();
+
+  res.json({ word });
+});
+
 app.get('/word/:wordLength', (req, res) => {
   const { wordLength } = req.params;
 
